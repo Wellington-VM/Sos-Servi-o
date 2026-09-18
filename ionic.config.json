@@ -1,0 +1,7 @@
+{
+  "name": "Sos serviço Wellington",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
