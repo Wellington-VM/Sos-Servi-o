@@ -1,0 +1,199 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar class="toolbar-custom">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+
+    <div class="logo-container">
+      <img
+        src="assets/icon/sos_serviços.svg"
+        alt="Logo"
+        class="header-logo"/>
+    </div>
+
+    <ion-buttons slot="end">
+      <ion-button class="notificacao-botao" [routerLink]="['/notificacao']">
+        <ion-icon name="notifications"></ion-icon>
+        <ion-badge color="danger">5</ion-badge>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <!-- Botões de Filtro por Categoria --------------------------------------->
+  <section class="secao-categorias">
+    <ion-buttons class="categoria-btn">
+      <ion-button
+        [class.ativo]="abaSelecionada === 'aceitos'"
+        (click)="selecionarAba('aceitos')">
+        Aceitos
+      </ion-button>
+
+      <ion-button
+        [class.ativo]="abaSelecionada === 'pendentes'"
+        (click)="selecionarAba('pendentes')">
+        Pendentes
+      </ion-button>
+
+      <ion-button
+        [class.ativo]="abaSelecionada === 'Finalizados'"
+        (click)="selecionarAba('Finalizados')">
+        Finalizados
+      </ion-button>
+    </ion-buttons>
+  </section>
+
+  <!-- Lista de Cards ------------------------------------------------------------------------------->
+  <section class="container-cards">
+    @for (profissional of profissionaisFiltrados; track profissional.id) {
+    <ion-card
+      class="card-profissional"
+    >
+      <ion-card-content>
+        <!-- Topo do Card -->
+        <div class="topo-card">
+          <ion-avatar class="avatar-profissional">
+            <img [src]="profissional.foto" [alt]="profissional.nome" />
+          </ion-avatar>
+
+          <div class="info-principal">
+            <h2 class="nome">{{ profissional.nome }}</h2>
+            <p class="profissao">{{ profissional.profissao }}</p>
+          </div>
+
+          <!-- Tag de Status -->
+          <div class="status-servico">
+            <span
+              class="status"
+              [ngClass]="'status-' + profissional.tipoStatus"
+            >
+              {{ profissional.status }}
+            </span>
+          </div>
+        </div>
+
+        <p class="localizacao">
+          <ion-icon name="location-outline"></ion-icon>
+          <span>{{ profissional.localizacao }}</span>
+        </p>
+
+        <!-- Resumo do Serviço -->
+        <div class="Resumo-servico">
+          <p class="Tipo-servico">{{ profissional.tiposervico }}</p>
+          <p class="Sobre-mim">{{ profissional.sobremim }}</p>
+        </div>
+
+        <!-- Ações do Card -->
+        <div class="btn-container">
+          <!-- 1. PENDENTE: Aceitar serviço / Recusar serviço -->
+          @if (profissional.tipoStatus === 'pendente') {
+            @if (tipoUsuario === 'profissional') {
+              <ion-button class="btn-aceitar"> Aceitar serviço </ion-button>
+              <ion-button class="btn-recusar"> Recusar serviço </ion-button>
+            } @else {
+              <ion-button class="btn-aceitar"> Editar detalhes </ion-button>
+              <ion-button class="btn-recusar"> Cancelar solicitação </ion-button>
+            }
+          }
+
+          <!-- 2. EM ANDAMENTO e AGENDADO: Reagendar / Falar com Cliente / Cancelar Serviço -->
+          @if (profissional.tipoStatus === 'andamento' || profissional.tipoStatus === 'agendado') {
+            <ion-button fill="outline" class="btn-reagendar">
+              Reagendar
+            </ion-button>
+            <ion-button class="btn-chat" 
+              [routerLink]="['/chat']" 
+              [queryParams]="{nome: profissional.nome, funcao: profissional.profissao, foto: profissional.foto}">
+              Falar com {{ tipoUsuario === 'profissional' ? 'Cliente' : 'Profissional' }} </ion-button>
+            <ion-button class="btn-cancelar"> Cancelar Serviço </ion-button>
+          }
+
+          <!-- 3. CANCELADO: Falar com Cliente -->
+          @if (profissional.tipoStatus === 'cancelado') {
+            <ion-button class="btn-chat" 
+              [routerLink]="['/chat']" 
+              [queryParams]="{nome: profissional.nome, funcao: profissional.profissao, foto: profissional.foto}">
+               Falar com {{ tipoUsuario === 'profissional' ? 'Cliente' : 'Profissional' }} </ion-button>
+          }
+
+          @if (profissional.tipoStatus === 'concluido') {
+            <ion-button class="btn-avaliar" fill="outline" (click)="abrirModal(profissional)">
+              Avaliar
+            </ion-button>
+            <ion-button class="btn-chat"
+              [routerLink]="['/chat']"
+              [queryParams]="{nome: profissional.nome, funcao: profissional.profissao, foto: profissional.foto}">
+               Falar com {{ tipoUsuario === 'profissional' ? 'Cliente' : 'Profissional' }} </ion-button>
+          }
+        </div>
+      </ion-card-content>
+    </ion-card>
+    }
+  </section>
+
+  <ion-modal [isOpen]="modalAberto" (didDismiss)="fecharModal()" [initialBreakpoint]="0.95" [breakpoints]="[0, 0.95, 1]">
+    <ng-template>
+      <ion-content class="ion-padding">
+        
+        <!-- Card com os dados do profissional selecionado -->
+        <ion-card class="card-profissional" style="margin: 0 0 16px 0;">
+          <ion-card-content>
+            <div class="topo-card">
+              <ion-avatar class="avatar-profissional">
+                <img [src]="profissionalSelecionado?.foto" [alt]="profissionalSelecionado?.nome" />
+              </ion-avatar>
+
+              <div class="info-principal">
+                <h2 class="nome">{{ profissionalSelecionado?.nome }}</h2>
+                <p class="profissao">{{ profissionalSelecionado?.profissao }}</p>
+              </div>
+
+              <!-- Sistema de Estrelas -->
+              <div class="avaliacao-topo">
+                <div class="estrelas-container">
+                  @for (icone of getEstrelas(profissionalSelecionado?.nota || 0); track $index) {
+                    <ion-icon [name]="icone" class="star-icon"></ion-icon>
+                  }
+                </div>
+                <span class="nota">{{ profissionalSelecionado?.nota?.toFixed(1) || '0.0' }}</span>
+              </div>
+            </div>
+          </ion-card-content>
+        </ion-card>
+
+        <!-- Formulário de Avaliação -->
+        <div class="secao-texto">
+          <div class="container-titulo">
+            <ion-label class="assunto">Avaliar profissional</ion-label>
+          </div>
+
+          <!-- Seletor/ Estrelas para a Nova Avaliação -->
+          <div class="container-estrelas-interativas">
+            <p class="label-estrelas">Sua nota:</p>
+            <div class="estrelas-selecao">
+              @for (estrela of [1, 2, 3, 4, 5]; track estrela) {
+                <ion-icon
+                  [name]="estrela <= notaEdicao ? 'star' : 'star-outline'"
+                  class="star-icon-modal"
+                  (click)="notaEdicao = estrela">
+                </ion-icon>
+              }
+            </div>
+          </div>
+
+          <div class="container-assunto">
+            <ion-textarea class="custom-input" placeholder="Deixe seu comentário sobre o profissional" rows="4"></ion-textarea> 
+          </div>
+        </div>
+
+        <div class="botoes-modal">
+          <ion-button expand="block" class="btn-Contratar" (click)="fecharModal()"> Confirmar </ion-button>
+          <ion-button expand="block" class="btn-cancelar" (click)="fecharModal()"> Cancelar </ion-button>
+        </div>
+
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+</ion-content>

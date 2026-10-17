@@ -1,0 +1,81 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button routerLink="/tabs/tab3">
+        <ion-icon name="arrow-back-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Chat</ion-title>
+    <ion-buttons slot="end">
+      <ion-button disabled style="opacity: 0;">
+        <ion-icon name="arrow-back-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="chat-content">
+
+  <ion-card class="card-profissional">
+    <ion-card-content>
+      <!-- Topo do Card -->
+      <div class="topo-card">
+        <ion-avatar class="avatar-profissional">
+          <img [src]="profissional.foto" [alt]="profissional.nome" loading="lazy" decoding="async"/>
+        </ion-avatar>
+
+        <div class="info-principal">
+          <h2 class="nome">{{ profissional.nome }}</h2>
+          <p class="profissao">{{ profissional.funcao }}</p>
+        </div>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+<!---- Conversas ----------------------------------------------------------------------------------------------->
+
+  <div class="chat-messages">
+    <div class="message-wrapper received">
+      <div class="message-bubble">
+        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+      </div>
+    </div>
+
+    <div class="message-wrapper sent">
+      <div class="message-bubble">
+        <p>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
+      </div>
+    </div>
+
+    <div class="message-wrapper received">
+      <div class="message-bubble">
+        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+      </div>
+    </div>
+
+    <div class="message-wrapper sent">
+      <div class="message-bubble">
+        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+      </div>
+    </div>
+  </div>
+</ion-content>
+
+<!---- Chat ----------------------------------------------------------------------------------------------->
+<ion-footer class="ion-no-border chat-footer">
+  <div class="input-container">
+    <ion-button fill="clear" class="icon-btn">
+      <ion-icon name="happy" slot="icon-only"></ion-icon>
+    </ion-button>
+
+    <input type="text" placeholder="Digite aqui...." class="chat-input" />
+
+    <ion-button fill="clear" class="icon-btn">
+      <ion-icon name="attach" slot="icon-only"></ion-icon>
+    </ion-button>
+
+    <ion-button fill="clear" class="icon-btn">
+      <ion-icon name="camera" slot="icon-only"></ion-icon>
+    </ion-button>
+  </div>
+</ion-footer>

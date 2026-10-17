@@ -1,0 +1,153 @@
+ion-toolbar {
+  --background: #f8faff;
+  border-bottom: 2px solid #e2e8f0;
+  --min-height: 56px;
+}
+
+ion-title {
+  text-align: center;
+}
+
+//card Profissionais----
+
+.card-profissional {
+  --background: #f8faff;
+  border-bottom: 2px solid #e2e8f0;
+  margin: 0;
+  box-shadow: none;
+
+  ion-card-content {
+    padding: 15px;
+  }
+
+  /* Bloco Superior (Avatar + Dados) */
+  .topo-card {
+    display: flex;
+    gap: 11px;
+    align-items: flex-start;
+  }
+
+  .avatar-profissional {
+    width: 50px;
+    height: 50px;
+    min-width: 50px;
+  }
+
+  .info-principal {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  /* 1. Nome */
+  .nome {
+    margin: 0;
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: #0f172a;
+    line-height: 1.2;
+  }
+
+  /* 2. Profissão */
+  .profissao {
+    margin: 0;
+    font-size: 0.86rem;
+    color: #475569;
+    line-height: 1.2;
+  }
+
+}
+
+/* ÁREA DAS MENSAGENS */
+.chat-content {
+  --background: #ffffff;
+  
+  .chat-messages {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+}
+
+/* BALÕES DE CHAT */
+.message-wrapper {
+  display: flex;
+  width: 100%;
+
+  .message-bubble {
+    max-width: 75%;
+    padding: 12px 16px;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    position: relative;
+
+    p {
+      margin: 0;
+      font-size: 0.85rem;
+      line-height: 1.4;
+      color: #334155;
+    }
+  }
+
+  /* Mensagem do Outro (Esquerda) */
+  &.received {
+    justify-content: flex-start;
+
+    .message-bubble {
+      background: #ffffff;
+      border-bottom-left-radius: 2px; /* Pontinha no canto inferior esquerdo */
+    }
+  }
+
+  /* Minha Mensagem (Direita) */
+  &.sent {
+    justify-content: flex-end;
+
+    .message-bubble {
+      background: #E6EEF0;
+      border-bottom-right-radius: 2px; /* Pontinha no canto inferior direito */
+    }
+  }
+}
+
+/* BARRA DE ENTRADA (FOOTER) */
+.chat-footer {
+  background: #ffffff;
+  padding: 12px 16px;
+
+  .input-container {
+    display: flex;
+    align-items: center;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 4px 8px;
+
+    .chat-input {
+      flex: 1;
+      border: none;
+      background: transparent;
+      padding: 10px 8px;
+      font-size: 0.9rem;
+      outline: none;
+      color: #1e293b;
+
+      &::placeholder {
+        color: #94a3b8;
+      }
+    }
+
+    .icon-btn {
+      --padding-start: 6px;
+      --padding-end: 6px;
+      margin: 0;
+
+      ion-icon {
+        color: #64748b;
+        font-size: 1.3rem;
+      }
+    }
+  }
+}

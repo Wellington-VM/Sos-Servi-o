@@ -1,0 +1,126 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar class="toolbar-custom">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+
+    <div class="logo-container">
+      <img src="assets/icon/sos_serviços.svg" alt="Logo" class="header-logo" />
+    </div>
+
+    <ion-buttons slot="end">
+      <ion-button class="notificacao-botao" [routerLink]="['/notificacao']">
+        <ion-icon name="notifications"></ion-icon>
+        <ion-badge color="danger">5</ion-badge>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <!-- Capa e Foto de Perfil ---------------------------------------------------------------------------------->
+  <section class="secao-perfil">
+    <div class="fundo-capa">
+      <img
+        src="assets/icon/paisagem.jpg"
+        alt="capa"
+      />
+    </div>
+
+    <ion-avatar class="foto-perfil">
+      <img [src]="usuario.foto" alt="foto de perfil" />
+    </ion-avatar>
+  </section>
+
+  <!-- Informações Principais-------------------------------------------------------------------------------------->
+  <section class="conteudo-perfil">
+    <!-- Nome e Profissão -->
+    <div class="header-usuario">
+      <h1 class="nome">{{ usuario.nome }}</h1>
+      <p class="profissao">{{ usuario.profissao }}</p>
+    </div>
+
+    <!-- Sobre Mim -->
+    @if (tipoUsuario === 'profissional') {
+    <div class="bloco-sobre-mim">
+      <h2>Sobre mim</h2>
+      <p>{{ usuario.sobre }}</p>
+    </div>
+    }
+
+    <!-- Contatos-Localização -->
+    <div class="colunas-duplas">
+      <div class="coluna">
+        <h2>Contatos</h2>
+        <p><strong>Email:</strong> {{ usuario.email }}</p>
+        <p><strong>Telefone:</strong> {{ usuario.telefone }}</p>
+      </div>
+
+      <div class="coluna">
+        <h2>Localização</h2>
+        <p>
+          <ion-icon name="location-outline"></ion-icon>{{ usuario.localizacao }}
+        </p>
+      </div>
+    </div>
+
+    <!-- Nota no App -->
+    <div class="nota-app">
+      <h2>Nota no app</h2>
+      <div class="estatisticas-nota">
+        <ion-icon name="star" class="star-icon"></ion-icon>
+        <span class="nota">{{ usuario.nota }}</span>
+        <span class="qtd-avaliacoes">({{ usuario.avaliacoes }})</span>
+        @if (tipoUsuario === 'profissional') {
+        <span class="ponto">•</span>
+        <span class="servicos">{{ usuario.servicos }} serviços realizados</span>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!---- Avaliações ----------------------------------------------------------------------------------------------->
+  <section>
+    <!-- Avaliações Recentes Recebidas -->
+    <div class="avaliacoes-secao">
+      <h2 class="texto">Avaliações recebidas recentemente</h2>
+
+      <!-- Cards de avaliação -->
+      @for (profissional of profissionais; track profissional.id) {
+      <ion-card class="card-profissional">
+        <ion-card-content>
+          <!-- Topo do Card -->
+          <div class="topo-card">
+            <ion-avatar class="avatar-profissional">
+              <img [src]="profissional.foto" [alt]="profissional.nome" />
+            </ion-avatar>
+
+            <div class="info-principal">
+              <h2 class="nome">{{ profissional.nome }}</h2>
+              <p class="profissao">{{ profissional.profissao }}</p>
+              <span class="data-avaliacao"
+                >Avaliação feita em {{ profissional.data }}</span
+              >
+            </div>
+
+            <!-- Lógica das Estrelas -->
+            <div class="avaliacao-topo">
+              <div class="estrelas-container">
+                @for (icone of getEstrelas(profissional.nota); track $index) {
+                <ion-icon [name]="icone" class="star-icon"></ion-icon>
+                }
+              </div>
+              <span class="nota">{{ profissional.nota.toFixed(1) }}</span>
+            </div>
+          </div>
+
+          <!-- Texto da Avaliação -->
+          <div class="avalicao-texto">
+            <p>{{ profissional.avaliacao }}</p>
+          </div>
+        </ion-card-content>
+      </ion-card>
+      }
+    </div>
+  </section>
+</ion-content>

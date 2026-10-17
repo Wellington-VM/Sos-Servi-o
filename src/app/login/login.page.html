@@ -1,0 +1,43 @@
+<ion-header>
+
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <div class="imagem-header">
+    <img src="assets/icon/pessoas.jpg" alt="Fundo">
+    <div class="overlay"></div>
+    
+    <div class="texto-header">
+      <h1>Bem-Vindo</h1>
+      <p>Entre com seus dados para acessar sua conta</p>
+    </div>
+  </div>
+
+  <div class="card-login">
+    
+    <div class="campo-input">
+      <label>Email:</label>
+      <ion-input fill="outline" placeholder="Entre com seu email" type="email"></ion-input>
+    </div>
+
+    <div class="campo-input">
+      <label>Senha:</label>
+      <ion-input fill="outline" placeholder="Entre com sua senha" type="password"></ion-input>
+      
+      <div class="esqueceu-senha">
+        <a href="#">Esqueceu a Senha?</a>
+      </div>
+    </div>
+
+    <ion-button expand="block" class="btn-entrar" [routerLink]="['/tabs/tab1']">
+      Entrar
+    </ion-button>
+
+    <div class="registrar">
+      <span>Ainda não tem conta? <a href="/registrar-se">Registre-se</a> agora</span>
+    </div>
+
+  </div>
+
+</ion-content>

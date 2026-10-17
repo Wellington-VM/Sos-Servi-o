@@ -1,0 +1,81 @@
+<ion-header [translucent]="true">
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <div class="imagem-header">
+    <img src="assets/icon/pessoas.jpg" alt="Fundo">
+    <div class="overlay"></div>
+    
+    <div class="texto-header">
+      <h1>Crie sua Conta</h1>
+      <p>Insira seus dados</p>
+    </div>
+  </div>
+
+  <div class="card-registrar">
+
+    <h2>Tipo de Perfil</h2>
+    <ion-radio-group value="custom-checked" class="custom-checked" [(ngModel)]="tipoPerfil" >
+      <ion-radio value="cliente" aria-label="Custom checkbox">Cliente</ion-radio>
+      <ion-radio value="profissional" aria-label="Custom checkbox that is checked">Profissional</ion-radio>
+    </ion-radio-group>
+    
+    <div class="campo-input">
+      <label>Nome:</label>
+      <ion-input fill="outline" placeholder="Digite seu Nome" type="name"></ion-input>
+    </div>
+
+    <div class="campo-input">
+      <label>Email:</label>
+      <ion-input fill="outline" placeholder="Digite seu email" type="email"></ion-input>
+    </div>
+
+    <div class="campo-input">
+      <label>Telefone:</label>
+      <ion-input fill="outline" placeholder="Digite seu numero" type="number"></ion-input>
+    </div>
+
+    <div class="campo-input">
+      <label>CPF:</label>
+      <ion-input fill="outline" placeholder="Digite seu cpf" type="number"></ion-input>
+    </div>
+
+    <div class="campo-input">
+      <label>Endereço:</label>
+      <ion-input fill="outline" placeholder="Digite seu Endereço" type="name"></ion-input>
+    </div>
+
+    <div class="Bairro-numero">
+      <div class="campo-input">
+        <label>Bairro:</label>
+        <ion-input fill="outline" placeholder="Digite seu Bairro" type="text"></ion-input>
+      </div>
+
+      <div class="campo-input">
+        <label>Numero:</label>
+        <ion-input fill="outline" placeholder="Número" type="number"></ion-input>
+      </div>
+    </div>
+
+    <div class="campo-input">
+      <label>Data de nascimento:</label>
+      <ion-input fill="outline" type="date"></ion-input>
+    </div>
+
+    <div class="campo-input">
+      <label>Senha:</label>
+      <ion-input fill="outline" placeholder="Digite sua senha" type="password"></ion-input>
+    </div>
+
+    <div class="campo-input">
+      <label>Confirme sua Senha:</label>
+      <ion-input fill="outline" placeholder="Repita a senha" type="password"></ion-input>
+    </div>
+
+    <ion-button expand="block" class="btn-proseguir" (click)="prosseguir()">
+      Prosseguir
+    </ion-button>
+  </div>
+
+</ion-content>

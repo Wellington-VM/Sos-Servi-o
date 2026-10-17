@@ -1,0 +1,202 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <div class="logo-container">
+      <img src="assets/icon/sos_serviços.svg" alt="Logo" class="header-logo"/>
+    </div>
+
+    <ion-buttons slot="end">
+      <ion-button class="notificacao-botao" [routerLink]="['/notificacao']">
+        <ion-icon name="notifications"></ion-icon>
+        <ion-badge color="danger">5</ion-badge>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="buscar">
+    <ion-searchbar [(ngModel)]="termoBusca" placeholder="Digite nome do profissional..." [debounce]="300"></ion-searchbar>
+  </div>
+
+  <!-- seção categorias ------------------------------------------------------------------------>
+  <section id="Categoria">
+    <div class="Categoria">
+      <h2 class="titulo-Categoria">Categoria</h2>
+    </div>
+
+    <div class="btn-categoria">
+      <div class="scroll-container">
+        @for (cat of categorias; track cat.id) {
+        <ion-button
+          [class.selected]="cat.id === categoriaSelecionadaId"
+          (click)="selecionarCategoria(cat.id)">
+            <img [src]="cat.icone"/>
+           {{ cat.nome }} </ion-button>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- SEÇÃO SERVIÇOS -------------------------------------------------------------------------->
+  <section>
+    <div class="Servico">
+      <h2 class="titulo-secao">Serviços</h2>
+    </div>
+
+    <!--Inicio Cards de Serviço -->
+    <ion-grid class="cards-servicos">
+      <ion-row>
+        @for (item of servicosFiltrados; track item.id) {
+        <ion-col size="3">
+          <ion-card
+            button
+            [class.selected]="item.id === servicoSelecionadoId"
+            (click)="selecionarServico(item.id)"
+          >
+            <img [src]="item.icone" [alt]="item.nome" />
+            <ion-card-header>
+              <ion-card-title>{{ item.nome }}</ion-card-title>
+            </ion-card-header>
+          </ion-card>
+        </ion-col>
+        }
+      </ion-row>
+    </ion-grid>
+  </section>
+
+  <!-- seção profissionais --------------------------------------------------------------------------->
+  <section>
+    <div class="filtro-container">
+      <h2 class="titulo-secao">Profissionais</h2>
+    </div>
+
+    <!--Inicio Cards de Profissional -->
+    @for (profissional of profissionaisFiltrados; track profissional.id) {
+    <ion-card
+      class="card-profissional"
+    >
+      <ion-card-content>
+        <!-- Topo do Card -->
+        <div class="topo-card">
+          <ion-avatar class="avatar-profissional">
+            <img
+              [src]="profissional.foto"
+              [alt]="profissional.nome"
+              loading="lazy"
+              decoding="async"
+            />
+          </ion-avatar>
+
+          <div class="info-principal">
+            <h2 class="nome">{{ profissional.nome }}</h2>
+
+            <p class="profissao">{{ profissional.profissao }}</p>
+
+            <div class="avaliacao-container">
+              <ion-icon name="star" class="star-icon"></ion-icon>
+              <span class="nota">{{ profissional.avaliacao }}</span>
+              <span class="detalhes"
+                >({{ profissional.qtdAvaliacoes }}) • {{
+                profissional.qtdServicos }} serviços</span
+              >
+            </div>
+
+            <p class="localizacao">
+              <ion-icon name="location-outline"></ion-icon>
+              <span>{{ profissional.localizacao }}</span>
+            </p>
+          </div>
+        </div>
+
+        <!-- Tags -->
+        <div class="tags-container">
+          @for (tag of profissional.tags; track tag) {
+          <ion-chip class="tag-chip">
+            <ion-label>{{ tag }}</ion-label>
+          </ion-chip>
+          }
+        </div>
+
+        <!-- Solicitar -->
+        <div class="btn-container">
+          <ion-button expand="block" shape="round" class="btn-solicitar" (click)="abrirModal(profissional)">
+            Solicitar Serviço
+          </ion-button>
+        </div>
+      </ion-card-content>
+    </ion-card>
+    }
+  </section>
+
+  <!-- MODAL DE CONTRATAÇÃO ------------------------------------------------------------------------->
+  <ion-modal [isOpen]="modalAberto" (didDismiss)="fecharModal()" [initialBreakpoint]="0.95" [breakpoints]="[0, 0.95, 1]">
+    <ng-template>
+      <ion-content class="ion-padding">
+        
+        <!-- Card com os dados do profissional selecionado -->
+        <ion-card class="card-profissional" style="margin: 0 0 16px 0;">
+          <ion-card-content>
+            <div class="topo-card">
+              <ion-avatar class="avatar-profissional">
+                <img [src]="profissionalSelecionado?.foto" [alt]="profissionalSelecionado?.nome" />
+              </ion-avatar>
+
+              <div class="info-principal">
+                <h2 class="nome">{{ profissionalSelecionado?.nome }}</h2>
+                <p class="profissao">{{ profissionalSelecionado?.profissao }}</p>
+
+                <div class="avaliacao-container">
+                  <ion-icon name="star" class="star-icon"></ion-icon>
+                  <span class="nota">{{ profissionalSelecionado?.avaliacao }}</span>
+                  <span class="detalhes">
+                    ({{ profissionalSelecionado?.qtdAvaliacoes }}) • {{ profissionalSelecionado?.qtdServicos }} serviços
+                  </span>
+                </div>
+
+                <p class="localizacao">
+                  <ion-icon name="location-outline"></ion-icon>
+                  <span>{{ profissionalSelecionado?.localizacao }}</span>
+                </p>
+              </div>
+            </div>
+          </ion-card-content>
+        </ion-card>
+
+        <!-- Formulário de Contratação -->
+        <div class="secao-texto">
+          <div class="container-assunto">
+            <ion-input class="assunto" label="Assunto:" placeholder="Ex: Trocar Fiação"></ion-input>
+          </div>
+
+          <div class="container-assunto">
+            <ion-textarea class="custom-input" placeholder="Descreva o que terá de ser feito" rows="4"></ion-textarea> 
+          </div>
+        </div>
+
+        <!-- Agendamento de Data -->
+        <div class="agendar">
+          <ion-item lines="none">
+            <ion-label>Agendar Data:</ion-label>
+            <ion-datetime-button datetime="datetime_modal"></ion-datetime-button>
+          </ion-item>
+        </div>
+
+        <ion-modal [keepContentsMounted]="true">
+          <ng-template>
+            <ion-datetime id="datetime_modal" locale="pt-BR"></ion-datetime>
+          </ng-template>
+        </ion-modal>
+
+        <!-- Botões de Ação -->
+        <div>
+          <ion-button expand="block" class="btn-Contratar" (click)="fecharModal()"> Contratar </ion-button>
+          <ion-button expand="block" class="btn-cancelar" (click)="fecharModal()"> Cancelar </ion-button>
+        </div>
+
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+</ion-content>

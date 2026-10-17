@@ -1,0 +1,403 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+
+    <div class="logo-container">
+      <img src="assets/icon/sos_serviços.svg" alt="Logo" class="header-logo" />
+    </div>
+
+    <ion-buttons slot="end">
+      <ion-button class="notificacao-botao" [routerLink]="['/notificacao']">
+        <ion-icon name="notifications"></ion-icon>
+        <ion-badge color="danger">5</ion-badge>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <!--Introdução da home ----------------------------------------------------------------------->
+  @if (tipoUsuario === 'cliente') {
+  <section>
+    <div class="introducao">
+      <h1>
+        Serviços feitos<br /><span class="destaque">por quem entende</span>
+      </h1>
+      <p>
+        Conectamos você a profissionais autônomos verificados. Encanadores,
+        eletricistas, chaveiros e muito mais — na hora que você precisar.
+      </p>
+    </div>
+  </section>
+
+  <!--FIm introdução da home ------------------------------------------------------------------------>
+
+  <div class="buscar">
+    <ion-searchbar
+      [routerLink]="['/tabs/tab2']"
+      placeholder="Buscar serviço ou profissional..."
+    ></ion-searchbar>
+  </div>
+
+  <!--Inicio Categorias de Serviço ---------------------------------------------------------------------->
+  <section>
+    <div class="Servico">
+      <h2 class="titulo-secao">Serviços</h2>
+      <ion-button shape="round" [routerLink]="['/tabs/tab2']">
+        Ver mais <ion-icon name="arrow-forward"></ion-icon>
+      </ion-button>
+    </div>
+
+    <!--Inicio Cards de Serviço -->
+    <ion-grid class="cards-servicos">
+      <ion-row>
+        @for (item of itens; track item.id) {
+        <ion-col size="3">
+          <ion-card
+            button
+            [class.selected]="item.id === idSelecionado"
+            (click)="selecionarItem(item.id)"
+          >
+            <img [src]="item.icone" [alt]="item.nome" />
+            <ion-card-header>
+              <ion-card-title>{{ item.nome }}</ion-card-title>
+            </ion-card-header>
+          </ion-card>
+        </ion-col>
+        }
+      </ion-row>
+    </ion-grid>
+  </section>
+  <!--Fim Categorias de Serviço ------------------------------------------------------------>
+
+  <!---- seção profissional ----------------------------------------------------------------------------------------------->
+  <section>
+    <div class="filtro-container">
+      <h2 class="titulo-secao">Profissionais</h2>
+
+      <ion-select
+        interface="popover"
+        toggleIcon="chevron-down-outline"
+        value="mais-avaliados"
+        class="select-filtro"
+      >
+        <ion-select-option value="mais-avaliados"
+          >Mais Avaliados</ion-select-option
+        >
+        <ion-select-option value="perto-de-mim">Perto de mim</ion-select-option>
+      </ion-select>
+    </div>
+
+    <!--Inicio Cards de Profissional -->
+    @for (profissional of profissionaisFiltrados; track profissional.id) {
+    <ion-card class="card-profissional">
+      <ion-card-content>
+        <!-- Topo do Card -->
+        <div class="topo-card">
+          <ion-avatar class="avatar-profissional">
+            <img
+              [src]="profissional.foto"
+              [alt]="profissional.nome"
+              loading="lazy"
+              decoding="async"
+            />
+          </ion-avatar>
+
+          <div class="info-principal">
+            <h2 class="nome">{{ profissional.nome }}</h2>
+
+            <p class="profissao">{{ profissional.profissao }}</p>
+
+            <div class="avaliacao-container">
+              <ion-icon name="star" class="star-icon"></ion-icon>
+              <span class="nota">{{ profissional.avaliacao }}</span>
+              <span class="detalhes"
+                >({{ profissional.qtdAvaliacoes }}) • {{
+                profissional.qtdServicos }} serviços</span
+              >
+            </div>
+
+            <p class="localizacao">
+              <ion-icon name="location-outline"></ion-icon>
+              <span>{{ profissional.localizacao }}</span>
+            </p>
+          </div>
+        </div>
+
+        <!-- 5. Tags -->
+        <div class="tags-container">
+          @for (tag of profissional.tags; track tag) {
+          <ion-chip class="tag-chip">
+            <ion-label>{{ tag }}</ion-label>
+          </ion-chip>
+          }
+        </div>
+
+        <!-- 6. Solicitar -->
+        <div class="btn-container">
+          <ion-button
+            shape="round"
+            class="btn-solicitar"
+            (click)="abrirModal(profissional)"
+          >
+            Solicitar Serviço
+          </ion-button>
+        </div>
+      </ion-card-content>
+    </ion-card>
+    }
+  </section>
+  }
+
+  <!--Inicio da visão profissional--------------------------------------------------------------------------->
+  @else {
+  <div class="home-profissional">
+    <!-- Mensagem de Boas-vindas -->
+    <div class="boas-vindas">
+      <h2>Olá, Marcos Mion!</h2>
+      <p>Confira seus compromissos e solicitações de hoje.</p>
+    </div>
+
+    <!-- Seção: Serviços Agendados para Hoje -->
+    <section class="secao-dashboard">
+      <div class="titulo-secao">
+        <div class="agrupador-titulo">
+          <h3>Agendados para Hoje</h3>
+          <span class="badge-qtd">2</span>
+        </div>
+        <ion-button fill="clear" class="btn-ver-mais" routerLink="/tabs/tab3">
+          Ver mais <ion-icon name="chevron-forward-outline"></ion-icon>
+        </ion-button>
+      </div>
+
+      <ion-card class="card-servico">
+        <ion-card-content>
+          <div class="header-card">
+            <div class="perfil-info">
+              <ion-avatar class="avatar-profissional">
+                <img
+                  src="assets/Icones_pessoas/Mulher3.jpg"
+                  alt="Layla Maysa"
+                />
+              </ion-avatar>
+
+              <div class="info-principal">
+                <h2 class="nome">Layla Maysa</h2>
+                <p class="profissao">Cliente</p>
+                <p class="endereco">
+                  <ion-icon name="location-outline"></ion-icon> Rua das Flores,
+                  123 - Centro
+                </p>
+              </div>
+            </div>
+
+            <span class="status-badge agendado">Em andamento</span>
+          </div>
+
+          <div class="corpo-card">
+            <h4>Reparo de vazamento em tubulação</h4>
+            <p class="situacao">
+              Substituição da tubulação principal e reparo de infiltrações no
+              banheiro.
+            </p>
+          </div>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card class="card-servico">
+        <ion-card-content>
+          <div class="header-card">
+            <div class="perfil-info">
+              <ion-avatar class="avatar-profissional">
+                <img
+                  src="assets/Icones_pessoas/Mulher1.jpg"
+                  alt="Fernanda Lima"
+                />
+              </ion-avatar>
+
+              <div class="info-principal">
+                <h2 class="nome">Fernanda Lima</h2>
+                <p class="profissao">Cliente</p>
+                <p class="endereco">
+                  <ion-icon name="location-outline"></ion-icon> Aleixo -
+                  Manaus/AM
+                </p>
+              </div>
+            </div>
+
+            <span class="status-badge marcado"
+              >Marcado para <br />29/10 às 14:40</span
+            >
+          </div>
+
+          <div class="corpo-card">
+            <h4>Vazamento na tubulação da cozinha</h4>
+            <p class="situacao">
+              Identificar e reparar um vazamento na tubulação da pia da cozinha
+              que está causando umidade no armário.
+            </p>
+          </div>
+        </ion-card-content>
+      </ion-card>
+    </section>
+
+    <!-- Seção: Solicitações Pendentes -->
+    <section class="secao-dashboard">
+      <div class="titulo-secao">
+        <div class="agrupador-titulo">
+          <h3>Solicitações Pendentes</h3>
+          <span class="badge-qtd pendente">2</span>
+        </div>
+        <ion-button fill="clear" class="btn-ver-mais" routerLink="/tabs/tab3">
+          Ver mais <ion-icon name="chevron-forward-outline"></ion-icon>
+        </ion-button>
+      </div>
+
+      <ion-card class="card-servico">
+        <ion-card-content>
+          <div class="header-card">
+            <div class="perfil-info">
+              <ion-avatar class="avatar-profissional">
+                <img
+                  src="assets/Icones_pessoas/Mulher1.jpg"
+                  alt="Fernanda Lima"
+                />
+              </ion-avatar>
+
+              <div class="info-principal">
+                <h2 class="nome">Fernanda Lima</h2>
+                <p class="profissao">Cliente</p>
+                <p class="endereco">
+                  <ion-icon name="location-outline"></ion-icon> Aleixo -
+                  Manaus/AM
+                </p>
+              </div>
+            </div>
+
+            <span class="status-badge aguardando"
+              >Aguardando <br />Confirmação</span
+            >
+          </div>
+
+          <div class="corpo-card">
+            <h4>Vazamento na tubulação da cozinha</h4>
+            <p class="situacao">
+              Identificar e reparar um vazamento na tubulação da pia da cozinha
+              que está causando umidade no armário.
+            </p>
+          </div>
+
+          <div class="acoes-solicitacao">
+            <ion-button class="btn-aceitar">Aceitar</ion-button>
+            <ion-button class="btn-recusar">Recusar</ion-button>
+          </div>
+        </ion-card-content>
+      </ion-card>
+    </section>
+  </div>
+  }
+
+  <!-- Inicio Modal -------------------------------------------------------------->
+  <ion-modal
+    [isOpen]="modalAberto"
+    (didDismiss)="fecharModal()"
+    [initialBreakpoint]="0.95"
+    [breakpoints]="[0, 0.95, 1]"
+  >
+    <ng-template>
+      <ion-content class="ion-padding">
+        <!-- Card com os dados do profissional selecionado -->
+        <ion-card class="card-profissional" style="margin: 0 0 16px 0">
+          <ion-card-content>
+            <div class="topo-card">
+              <ion-avatar class="avatar-profissional">
+                <img
+                  [src]="profissionalSelecionado?.foto"
+                  [alt]="profissionalSelecionado?.nome"
+                />
+              </ion-avatar>
+
+              <div class="info-principal">
+                <h2 class="nome">{{ profissionalSelecionado?.nome }}</h2>
+                <p class="profissao">
+                  {{ profissionalSelecionado?.profissao }}
+                </p>
+
+                <div class="avaliacao-container">
+                  <ion-icon name="star" class="star-icon"></ion-icon>
+                  <span class="nota"
+                    >{{ profissionalSelecionado?.avaliacao }}</span
+                  >
+                  <span class="detalhes">
+                    ({{ profissionalSelecionado?.qtdAvaliacoes }}) • {{
+                    profissionalSelecionado?.qtdServicos }} serviços
+                  </span>
+                </div>
+
+                <p class="localizacao">
+                  <ion-icon name="location-outline"></ion-icon>
+                  <span>{{ profissionalSelecionado?.localizacao }}</span>
+                </p>
+              </div>
+            </div>
+          </ion-card-content>
+        </ion-card>
+
+        <!-- Formulário de Contratação -->
+        <div class="secao-texto">
+          <div class="container-assunto">
+            <ion-input
+              class="assunto"
+              label="Assunto:"
+              placeholder="Ex: Trocar Fiação"
+            ></ion-input>
+          </div>
+
+          <div class="container-assunto">
+            <ion-textarea
+              class="custom-input"
+              placeholder="Descreva o que terá de ser feito"
+              rows="4"
+            ></ion-textarea>
+          </div>
+        </div>
+
+        <!-- Agendamento de Data -->
+        <div class="agendar">
+          <ion-item lines="none">
+            <ion-label>Agendar Data:</ion-label>
+            <ion-datetime-button
+              datetime="datetime_modal"
+            ></ion-datetime-button>
+          </ion-item>
+        </div>
+
+        <ion-modal [keepContentsMounted]="true">
+          <ng-template>
+            <ion-datetime id="datetime_modal" locale="pt-BR"></ion-datetime>
+          </ng-template>
+        </ion-modal>
+
+        <!-- Botões de Ação -->
+        <div>
+          <ion-button
+            expand="block"
+            class="btn-Contratar"
+            (click)="fecharModal()"
+          >
+            Contratar
+          </ion-button>
+          <ion-button
+            expand="block"
+            class="btn-cancelar"
+            (click)="fecharModal()"
+          >
+            Cancelar
+          </ion-button>
+        </div>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+</ion-content>

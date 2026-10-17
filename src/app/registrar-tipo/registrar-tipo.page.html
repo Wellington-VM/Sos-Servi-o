@@ -1,0 +1,44 @@
+<ion-header [translucent]="true"> </ion-header>
+
+<ion-content [fullscreen]="true">
+  
+  <div class="imagem-header">
+    <img src="assets/icon/pessoas.jpg" alt="Fundo"/>
+    
+    <div class="overlay"></div>
+    
+    <div class="texto-header">
+      <h1>Finalize seu cadastro</h1>
+      <p>Selecione seu tipo de perfil</p>
+    
+    </div>
+  </div>
+
+  <div class="card-registrar-profissional">
+    <div class="campo-input">
+      <label> Tipo serviço:</label>
+      <ion-select toggleIcon="chevron-down-outline" value="Encanador" class="select-filtro">
+        <ion-select-option value="Encanador">Encanador</ion-select-option>
+        <ion-select-option value="Eletricista">Eletricista</ion-select-option>
+        <ion-select-option value="Chaveiro">Chaveiro</ion-select-option>
+        <ion-select-option value="Diarista">Diarista</ion-select-option>
+        <ion-select-option value="Jardineiro">Jardineiro</ion-select-option>
+        <ion-select-option value="Pedreiro">Pedreiro</ion-select-option>
+        <ion-select-option value="Marceneiro">Marceneiro</ion-select-option>
+      </ion-select>
+    </div>
+    <div class="campo-input">
+      <label>Anos de Experiência:</label>
+      <ion-input fill="outline" placeholder="Quanto tempo atua na área" type="number"></ion-input>
+    </div>
+
+    <div class="campo-input">
+      <label>Descrição:</label>
+      <ion-input fill="outline" placeholder="Fale sobre você e seu trabalho" type="text"></ion-input>
+    </div>
+
+    <ion-button expand="block" class="btn-proseguir" [routerLink]="['/tabs/tab1']">
+      Prosseguir
+    </ion-button>
+  </div>
+</ion-content>

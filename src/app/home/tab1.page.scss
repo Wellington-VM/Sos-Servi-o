@@ -1,0 +1,660 @@
+ion-content {
+  --background: white;
+  --padding-bottom: 75px;
+}
+
+ion-toolbar {
+  --background: #f8faff;
+  border-bottom: 2px solid #e2e8f0;
+  --min-height: 56px;
+  position: relative; /* Garante a referência para o absolute do container */
+}
+
+.logo-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none; /* Permite clicar nos botões que ficarem sob a área da div caso se sobreponham */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .header-logo {
+    height: 48px;
+    width: auto;
+    display: block;
+  }
+}
+
+.notificacao-botao {
+  position: relative;
+  overflow: visible;
+
+  ion-icon {
+    font-size: 28px;
+    color: #2563eb;
+  }
+
+  ion-badge {
+    position: absolute;
+    top: -2px;
+    right: 14px;
+    font-size: 9px;
+    padding: 4px 4px;
+    border-radius: 50%;
+    color: white;
+  }
+}
+//Fim da seção Top Bar-----------------------------------------------------------
+
+//Inicio Introdução--------------------------------------------------------------
+.introducao {
+  color: black;
+  padding: 24px 16px 10px 16px;
+  text-align: center;
+
+  h1 {
+    font-size: 28px;
+    font-weight: bold;
+    margin: 0;
+    line-height: 1.2;
+
+    .destaque {
+      color: #2563eb;
+    }
+  }
+}
+
+.buscar {
+  padding: 10px 16px;
+  position: relative;
+
+  ion-searchbar {
+    --background: #ffff;
+    --border-radius: 12px;
+    --box-shadow: none;
+    --color: #0f172a;
+    --placeholder-color: #64748b;
+    padding: 0;
+    border: 2px solid #e2e8f0;
+    border-radius: 10px;
+  }
+}
+
+//Inicio Serviços--------------------------------------------------------------
+.Servico {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  margin-top: 16px;
+
+  .titulo-secao {
+    font-size: 20px;
+    font-weight: 700;
+    color: #000;
+    margin: 0;
+  }
+
+  ion-button {
+    --background: #2563eb;
+    color: white;
+    font-size: 10.5px;
+    border-radius: 50px;
+    --padding-start: 12px;
+    --padding-end: 12px;
+    --padding-top: 6px;
+    --padding-bottom: 6px;
+    width: fit-content;
+    min-height: auto;
+    font-weight: bold;
+  }
+}
+
+//card serviços-------------------------------------------------------------
+.cards-servicos {
+  padding: 8px;
+
+  ion-col {
+    padding: 4px;
+  }
+
+  ion-card {
+    --background: #f8faff;
+    border: 2px solid #e2e8f0;
+    text-align: center;
+    --box-shadow: none;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    padding: 10px 2px;
+    margin: 0;
+    width: 100%;
+    border-radius: 12px;
+    transition: all 0.3s ease-in-out;
+
+    &.selected {
+      background: rgba(37, 100, 235, 0.591);
+      transform: scale(0.97);
+      border-color: #2563eb;
+    }
+
+    &::part(native) {
+      padding: 0px;
+      background: transparent;
+    }
+  }
+
+  img {
+    margin: 0 auto;
+    padding: 0;
+    height: 30px;
+    width: auto;
+    display: block;
+  }
+
+  ion-card-header {
+    padding: 4px 0 0 0;
+    width: 100%;
+  }
+
+  ion-card-title {
+    color: #1e293b;
+    font-size: 0.65rem;
+    font-weight: bold;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+//Profissionais----------------------------------------------------------------------
+
+.filtro-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  margin-top: 16px;
+
+  .titulo-secao {
+    font-size: 20px;
+    font-weight: 700;
+    color: #000;
+    margin: 0;
+  }
+}
+
+.select-filtro {
+  --background: #2563eb;
+  color: #ffffff;
+  --border-radius: 50px;
+
+  --padding-start: 12px;
+  --padding-end: 12px;
+  --padding-top: 6px;
+  --padding-bottom: 6px;
+
+  font-weight: bold;
+  font-size: 12.5px;
+  width: fit-content;
+  min-height: auto;
+
+  --highlight-color-focused: transparent;
+  --highlight-color: transparent;
+
+  &::part(container) {
+    align-items: center;
+    justify-content: center;
+  }
+
+  &::part(text) {
+    align-items: center;
+    justify-content: center;
+  }
+
+  &::part(icon) {
+    color: #ffffff;
+    opacity: 1;
+  }
+}
+
+//card Profissionais----
+
+.card-profissional {
+  --background: #f8faff;
+  border: 2px solid #e2e8f0;
+  border-radius: 15px;
+  margin: 11px 16px;
+  box-shadow: none;
+
+  ion-card-content {
+    padding: 15px;
+  }
+
+  /* Bloco Superior (Avatar + Dados) */
+  .topo-card {
+    display: flex;
+    gap: 11px;
+    align-items: flex-start;
+  }
+
+  .avatar-profissional {
+    width: 50px;
+    height: 50px;
+    min-width: 50px;
+  }
+
+  .info-principal {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  /* 1. Nome */
+  .nome {
+    margin: 0;
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: #0f172a;
+    line-height: 1.2;
+  }
+
+  /* 2. Profissão */
+  .profissao {
+    margin: 0;
+    font-size: 0.86rem;
+    color: #475569;
+    line-height: 1.2;
+  }
+
+  /* 3. Avaliação */
+  .avaliacao-container {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 2px;
+    font-size: 0.79rem;
+
+    .star-icon {
+      color: #facc15;
+      font-size: 0.86rem;
+    }
+
+    .nota {
+      font-weight: bold;
+      color: #0f172a;
+      font-size: 0.82rem;
+    }
+
+    .detalhes {
+      color: #64748b;
+      font-size: 0.75rem;
+    }
+  }
+
+  /* 4. Localização */
+  .localizacao {
+    display: flex;
+    align-items: flex-start;
+    gap: 4px;
+    margin: 4px 0 0 0;
+    font-size: 0.79rem;
+    color: #334155;
+    line-height: 1.25;
+
+    ion-icon {
+      font-size: 0.86rem;
+      color: #334155;
+      margin-top: 1px;
+      flex-shrink: 0;
+    }
+  }
+
+  /* 5. Tags / Especialidades */
+  .tags-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 14px;
+    margin-bottom: 15px;
+
+    .tag-chip {
+      --background: #e0f2fe;
+      --color: #0369a1;
+      margin: 0;
+      height: 24px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      border-radius: 8px;
+    }
+  }
+
+  /* 6. Botão Solicitar */
+  .btn-container {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    .btn-solicitar {
+      --background: #2563eb;
+      --border-radius: 8px;
+      font-weight: bold;
+      font-size: 10.5px;
+      width: 100%;
+      height: 35px;
+      margin: 0 auto;
+      color: white;
+      --padding-start: 7px;
+      --padding-end: 7px;
+      --min-height: 35px;
+    }
+  }
+}
+
+.secao-texto {
+  border: 2px solid #e2e8f0;
+  margin: 11px 0px;
+  border-radius: 10px;
+  background: #f8faff;
+  overflow: hidden;
+
+  .container-assunto {
+    color: black;
+    padding: 0 10px;
+    font-weight: bold;
+
+    /* Aplica a borda apenas no container superior para dividir do textarea */
+    &:first-child {
+      border-bottom: 2px solid #e2e8f0;
+    }
+
+    /* Estilização para tirar a linha dos inputs/textareas */
+    ion-input,
+    ion-textarea {
+      --padding-top: 10px;
+      --padding-bottom: 10px;
+      --border-width: 0 !important;
+      --highlight-height: 0px !important; /* Remove a linha azul de foco */
+
+      /* Garante a remoção das linhas dentro do Shadow DOM do Ionic */
+      &::part(native) {
+        border: none !important;
+        box-shadow: none !important;
+      }
+    }
+
+    .assunto {
+      color: black;
+      font-size: 0.9rem;
+    }
+
+    .custom-input {
+      font-size: 0.88rem;
+    }
+  }
+}
+
+.agendar {
+  border: 1px solid #e2e8f0;
+  margin: 11px 0px;
+  border-radius: 12px;
+  background: #f8faff;
+  overflow: hidden;
+
+  ion-item {
+    --background: transparent;
+    --inner-padding-end: 10px;
+    --padding-start: 12px;
+    color: #000;
+  }
+
+  ion-label {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: #0c0c0c;
+  }
+
+  ion-datetime-button {
+    --background: #ffffff;
+    --color: #2563eb;
+    --border-radius: 8px;
+
+    font-weight: 600;
+    font-size: 0.85rem;
+    border-radius: 8px;
+
+    &::part(native) {
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    }
+  }
+}
+
+.btn-Contratar {
+  --background: #2563eb;
+  --color: white;
+  --border-radius: 6px;
+}
+
+.btn-cancelar {
+  --background: #ef4444;
+  --color: white;
+  --border-radius: 6px;
+}
+
+// ===== Visão Profissional Padronizada =====
+.home-profissional {
+  padding: 16px;
+
+  .boas-vindas {
+    margin-bottom: 20px;
+
+    h2 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #0f172a;
+      margin: 0;
+    }
+
+    p {
+      color: #64748b;
+      font-size: 0.85rem;
+      margin-top: 4px;
+    }
+  }
+
+  .secao-dashboard {
+    margin-bottom: 24px;
+
+    .titulo-secao {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+
+      .agrupador-titulo {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        h3 {
+          font-size: 1rem;
+          font-weight: 700;
+          color: #0f172a;
+          margin: 0;
+        }
+
+        .badge-qtd {
+          background-color: #2563eb;
+          color: white;
+          font-size: 0.72rem;
+          font-weight: 700;
+          padding: 2px 8px;
+          border-radius: 12px;
+
+          &.pendente {
+            background-color: #f59e0b;
+          }
+        }
+      }
+
+      .btn-ver-mais {
+        --color: #2563eb;
+        font-size: 0.8rem;
+        font-weight: 600;
+        height: auto;
+        --padding-start: 0;
+        --padding-end: 0;
+        margin: 0;
+
+        ion-icon {
+          font-size: 0.9rem;
+          margin-left: 2px;
+        }
+      }
+    }
+  }
+
+  .card-servico {
+    --background: #f8faff;
+    border: 2px solid #e2e8f0;
+    border-radius: 15px;
+    margin: 0 0 14px 0;
+    box-shadow: none;
+    width: 100%;
+
+    ion-card-content {
+      padding: 15px;
+    }
+
+    .header-card {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 8px;
+
+      .perfil-info {
+        display: flex;
+        gap: 11px;
+
+        .avatar-profissional {
+          width: 48px;
+          height: 48px;
+          min-width: 48px;
+        }
+
+        .info-principal {
+          display: flex;
+          flex-direction: column;
+
+          .nome {
+            margin: 0;
+            font-size: 0.875rem;
+            font-weight: 700;
+            color: #0f172a;
+            line-height: 1.2;
+          }
+
+          .profissao {
+            margin: 0;
+            font-size: 0.82rem;
+            color: #64748b;
+            line-height: 1.2;
+          }
+
+          .endereco {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            margin: 4px 0 0 0;
+            font-size: 0.78rem;
+            color: #475569;
+
+            ion-icon {
+              font-size: 0.85rem;
+              color: #475569;
+              flex-shrink: 0;
+            }
+          }
+        }
+      }
+
+      .status-badge {
+        font-size: 0.7rem;
+        padding: 4px 8px;
+        border-radius: 8px;
+        font-weight: 700;
+        text-align: center;
+        line-height: 1.2;
+        white-space: nowrap;
+
+        &.agendado {
+          background-color: #fef3c7;
+          color: #d97706;
+        }
+
+        &.aguardando {
+          background-color: #f59e0b;
+          color: #ffffff;
+        }
+
+        &.marcado {
+          background-color: #2563eb;
+          color: #ffffff;
+        }
+      }
+    }
+
+    .corpo-card {
+      margin-top: 12px;
+
+      h4 {
+        margin: 0 0 4px 0;
+        font-size: 0.9rem;
+        font-weight: 700;
+        color: #0f172a;
+      }
+
+      .situacao {
+        margin: 0;
+        font-size: 0.82rem;
+        color: #475569;
+        line-height: 1.35;
+      }
+    }
+
+    .acoes-solicitacao {
+      display: flex;
+      gap: 8px;
+      margin-top: 14px;
+
+      ion-button {
+        flex: 1;
+        margin: 0;
+        height: 35px;
+        --min-height: 35px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: none;
+        --box-shadow: none;
+
+        &.btn-aceitar {
+          --background: #2563eb;
+          --color: #ffffff;
+          --border-radius: 8px;
+        }
+
+        &.btn-recusar {
+          --background: #ef4444;
+          --color: #ffffff;
+          --border-radius: 8px;
+        }
+      }
+    }
+  }
+}
